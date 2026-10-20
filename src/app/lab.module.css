@@ -15,14 +15,13 @@
   border-radius: var(--radius-surface);
   background: linear-gradient(100deg, oklch(90% 0.045 300), oklch(92% 0.045 65));
   color: oklch(22% 0.01 300);
-  padding: var(--space-16) var(--space-6);
-  text-align: center;
+  padding: var(--space-10) var(--space-6);
 }
 
 .title {
-  margin: 0 auto;
-  max-width: 14ch;
-  font-size: var(--text-4xl);
+  margin: 0;
+  max-width: 16ch;
+  font-size: var(--text-3xl);
 }
 
 .heading {
@@ -38,46 +37,10 @@
 }
 
 .lede {
-  margin: var(--space-6) auto 0;
-  max-width: 38rem;
+  margin: var(--space-3) 0 0;
+  max-width: 36rem;
   color: color-mix(in oklab, oklch(22% 0.01 300) 72%, transparent);
-  font-size: var(--text-lg);
-}
-
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--space-3);
-  margin-top: var(--space-8);
-}
-
-.action {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: var(--control-height-md);
-  padding: 0 var(--space-5);
-  border-radius: var(--radius-control);
-  font-size: var(--text-sm);
-  font-weight: 500;
-  text-decoration: none;
-}
-
-.primary {
-  background: oklch(22% 0.01 300);
-  color: oklch(98% 0 0);
-}
-
-.secondary {
-  border: 1px solid oklch(82% 0 0);
-  background: oklch(100% 0 0);
-  color: oklch(22% 0.01 300);
-}
-
-.index {
-  display: grid;
-  gap: var(--space-6);
+  font-size: var(--text-base);
 }
 
 .tools {
@@ -170,19 +133,6 @@
   list-style: none;
 }
 
-.steps {
-  display: grid;
-  gap: var(--space-3);
-  margin: 0;
-  padding-left: 1.25rem;
-  color: var(--text-secondary);
-}
-
-.steps strong {
-  color: var(--foreground);
-  font-weight: 500;
-}
-
 .prose {
   display: grid;
   gap: var(--space-4);
@@ -217,6 +167,12 @@
   position: relative;
 }
 
+.chrome nav:not(:has(a)),
+.chrome button[aria-label="Open menu"],
+.chrome button[aria-label="Close menu"] {
+  display: none;
+}
+
 .theme {
   position: absolute;
   z-index: 30;
@@ -230,22 +186,12 @@
   }
 
   .hero {
-    padding: var(--space-12) var(--space-5);
-  }
-}
-
-@media (max-width: 760px) {
-  .theme {
-    right: calc(max(var(--space-6), calc((100% - 1200px) / 2 + var(--space-6))) + 48px);
+    padding: var(--space-8) var(--space-5);
   }
 }
 
 @media (max-width: 640px) {
   .grid {
     grid-template-columns: 1fr;
-  }
-
-  .title {
-    font-size: var(--text-3xl);
   }
 }

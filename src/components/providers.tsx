@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { ArcProvider } from "@/components/arc/lib/arc-provider";
 import { SiteFooter } from "@/components/arc/blocks/site-footer/site-footer";
 import { SiteHeader } from "@/components/arc/blocks/site-header/site-header";
@@ -25,18 +24,15 @@ function Mark() {
 }
 
 function Chrome({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
   const { theme, setTheme } = useLabTheme();
-  const current = pathname === "/" ? "index" : undefined;
 
   return (
     <>
       <div className={styles.chrome}>
         <SiteHeader
-          variant="centered"
+          variant="simple"
           brand={{ name: "Lab", href: "/", mark: <Mark /> }}
-          items={[{ value: "index", label: "Index", href: "/" }]}
-          current={current}
+          items={[]}
           secondaryAction={null}
           primaryAction={null}
           label="Lab"
@@ -62,7 +58,6 @@ function Chrome({ children }: { children: React.ReactNode }) {
         brand={{ name: "Lab", href: "/", mark: <Mark /> }}
         tagline="A public index of experiments."
         links={[
-          { label: "Index", href: "/" },
           { label: "GitHub", href: "https://github.com/YogeshBhusara/lab", external: true },
         ]}
         columns={[]}
