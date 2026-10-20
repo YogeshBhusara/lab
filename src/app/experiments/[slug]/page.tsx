@@ -38,7 +38,7 @@ export default async function ExperimentPage({ params }: PageProps) {
   if (!experiment) notFound();
 
   return (
-    <article className={`${styles.page} ${styles.reading}`}>
+    <article className={styles.notePage}>
       <Breadcrumb
         items={[
           { label: "Lab", href: "/" },

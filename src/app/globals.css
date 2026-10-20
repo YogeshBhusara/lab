@@ -5,19 +5,19 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-body);
+  background: #ebebeb;
+  color: #292929;
+  font-family: var(--font-grotesk), sans-serif;
   font-weight: 400;
-  letter-spacing: var(--tracking-body);
-  line-height: var(--leading-body);
+  letter-spacing: -0.02em;
+  line-height: 1.45;
 }
 
 h1,
 h2,
 h3 {
-  font-family: var(--font-display);
-  font-weight: 500;
-  letter-spacing: var(--tracking-display);
-  line-height: var(--leading-display);
+  font-family: inherit;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
 }

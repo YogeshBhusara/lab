@@ -1,18 +1,13 @@
 import type { Metadata } from "next";
-import { Inter, Geist } from "next/font/google";
-import { Providers } from "@/components/providers";
+import { Space_Grotesk } from "next/font/google";
+import { Shell } from "@/components/shell";
 import { getSiteUrl, site } from "@/lib/site";
 import "@/components/arc/foundation.css";
 import "./globals.css";
 
-const geist = Geist({
+const grotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-geist",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-grotesk",
 });
 
 export const metadata: Metadata = {
@@ -32,9 +27,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" data-theme="dark" className={`${geist.variable} ${inter.variable}`}>
+    <html lang="en" data-theme="light" className={grotesk.variable}>
       <body>
-        <Providers>{children}</Providers>
+        <Shell>{children}</Shell>
       </body>
     </html>
   );
