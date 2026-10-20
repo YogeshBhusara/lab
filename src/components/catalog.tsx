@@ -2,130 +2,78 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { Badge } from "@/components/arc/badge/badge";
+import { Button } from "@/components/arc/button/button";
+import { Card } from "@/components/arc/card/card";
+import { EmptyState } from "@/components/arc/empty-state/empty-state";
+import { SearchField } from "@/components/arc/search-field/search-field";
+import SegmentedControl from "@/components/arc/segmented-control/segmented-control";
 import { experimentPath } from "@/lib/site";
 import { STATUS_LABEL, type Experiment, type ExperimentStatus } from "@/lib/types";
+import styles from "@/app/lab.module.css";
 
-const filters: Array<{ id: "all" | ExperimentStatus; label: string }> = [
-  { id: "all", label: "All" },
-  { id: "prototype", label: "Prototypes" },
-  { id: "study", label: "Studies" },
-  { id: "native", label: "Native" },
-  { id: "sketch", label: "Sketches" },
+const options: Array<{ value: "all" | ExperimentStatus; label: string }> = [
+  { value: "all", label: "All" },
+  { value: "prototype", label: "Prototype" },
+  { value: "study", label: "Study" },
+  { value: "native", label: "Native" },
+  { value: "sketch", label: "Sketch" },
 ];
 
-export function Catalog({
-  experiments,
-  tags,
-}: {
-  experiments: Experiment[];
-  tags: string[];
-}) {
+export function Catalog({ experiments }: { experiments: Experiment[] }) {
   const [query, setQuery] = useState("");
-  const [status, setStatus] = useState<(typeof filters)[number]["id"]>("all");
-  const [tag, setTag] = useState("all");
+  const [status, setStatus] = useState<(typeof options)[number]["value"]>("all");
 
   const visible = useMemo(() => {
     const needle = query.trim().toLowerCase();
     return experiments.filter((experiment) => {
       if (status !== "all" && experiment.status !== status) return false;
-      if (tag !== "all" && !experiment.tags.includes(tag)) return false;
       if (!needle) return true;
-      const haystack = [
-        experiment.title,
-        experiment.summary,
-        experiment.stack.join(" "),
-        experiment.tags.join(" "),
-      ]
+      return [experiment.title, experiment.summary, experiment.tags.join(" "), experiment.stack.join(" ")]
         .join(" ")
-        .toLowerCase();
-      return haystack.includes(needle);
+        .toLowerCase()
+        .includes(needle);
     });
-  }, [experiments, query, status, tag]);
+  }, [experiments, query, status]);
+
+  function clearFilters() {
+    setQuery("");
+    setStatus("all");
+  }
 
   return (
-    <section id="index" className="scroll-mt-24">
-      <div className="flex flex-col gap-4 border-y border-white/10 py-5 lg:flex-row lg:items-end lg:justify-between">
-        <div>
-          <p className="font-mono text-[11px] tracking-[0.18em] text-[#e7ff6a] uppercase">Index</p>
-          <h2 className="mt-2 font-serif text-3xl text-[#f4efe4] italic">
-            {visible.length} {visible.length === 1 ? "experiment" : "experiments"}
-          </h2>
+    <section id="index" className={styles.index}>
+      <div className={styles.tools}>
+        <SegmentedControl label="Status" value={status} onValueChange={(value) => setStatus(value as typeof status)} options={options} />
+        <div className={styles.search}>
+          <SearchField label="Search experiments" placeholder="Title, stack, or note" value={query} onValueChange={setQuery} />
         </div>
-        <label className="block w-full lg:max-w-sm">
-          <span className="sr-only">Search experiments</span>
-          <input
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search title, stack, or note"
-            className="h-11 w-full border border-white/15 bg-white/5 px-3 text-sm text-[#f4efe4] outline-none placeholder:text-[#f4efe4]/35 focus:border-[#e7ff6a]"
-          />
-        </label>
-      </div>
-
-      <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex flex-wrap gap-2" role="tablist" aria-label="Filter by status">
-          {filters.map((filter) => {
-            const active = status === filter.id;
-            return (
-              <button
-                key={filter.id}
-                type="button"
-                role="tab"
-                aria-selected={active}
-                onClick={() => setStatus(filter.id)}
-                className={`h-8 px-3 text-xs tracking-wide uppercase ${
-                  active
-                    ? "bg-[#e7ff6a] text-[#14160f]"
-                    : "border border-white/15 text-[#f4efe4]/75 hover:border-white/40"
-                }`}
-              >
-                {filter.label}
-              </button>
-            );
-          })}
-        </div>
-        <label className="flex items-center gap-2 text-sm text-[#f4efe4]/70">
-          <span className="font-mono text-[11px] tracking-[0.16em] uppercase">Tag</span>
-          <select
-            value={tag}
-            onChange={(event) => setTag(event.target.value)}
-            className="h-8 border border-white/15 bg-[#10120f] px-2 text-sm text-[#f4efe4] outline-none"
-          >
-            <option value="all">All tags</option>
-            {tags.map((item) => (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
-        </label>
       </div>
 
       {visible.length === 0 ? (
-        <p className="mt-10 border border-dashed border-white/20 px-4 py-10 text-center text-[#f4efe4]/60">
-          Nothing matches that filter.
-        </p>
+        <EmptyState
+          title="No matches"
+          description="Try a shorter search, or clear the status filter."
+          action={
+            <Button variant="secondary" onClick={clearFilters}>
+              Clear filters
+            </Button>
+          }
+        />
       ) : (
-        <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {visible.map((experiment, index) => (
+        <ul className={styles.grid}>
+          {visible.map((experiment) => (
             <li key={experiment.slug}>
-              <Link
-                href={experimentPath(experiment.slug)}
-                className="group flex h-full flex-col bg-[#f6f1e7] p-5 text-[#1a1714] transition hover:-translate-y-0.5 hover:bg-white"
-              >
-                <div className="flex items-center justify-between font-mono text-[11px] tracking-[0.16em] uppercase">
-                  <span className="text-[#1a1714]/45">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="text-[#6d4a12]">{STATUS_LABEL[experiment.status]}</span>
-                </div>
-                <h3 className="mt-6 font-serif text-[1.75rem] leading-none tracking-tight italic">
-                  {experiment.title}
-                </h3>
-                <p className="mt-3 flex-1 text-sm leading-6 text-[#3c3832]">{experiment.summary}</p>
-                <p className="mt-5 text-xs tracking-wide text-[#1a1714]/55 uppercase">
-                  {experiment.tags.slice(0, 3).join(" · ") || experiment.year}
-                </p>
+              <Link href={experimentPath(experiment.slug)} className={styles.hit}>
+                <Card
+                  title={experiment.title}
+                  description={experiment.summary}
+                  meta={experiment.tags.slice(0, 3).join(" · ")}
+                >
+                  <Badge tone="neutral" size="sm">
+                    {STATUS_LABEL[experiment.status]}
+                  </Badge>
+                </Card>
               </Link>
             </li>
           ))}

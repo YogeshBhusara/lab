@@ -25,20 +25,18 @@ export default async function OpenGraphImage({ params }: ImageProps) {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#10120f",
-          color: "#f6f1e7",
+          background: "linear-gradient(100deg, #efe4fb, #f8ead4)",
+          color: "#241c33",
           padding: "64px",
         }}
       >
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 24 }}>
           <span>Lab · Yogesh Bhusara</span>
-          <span style={{ color: "#e7ff6a" }}>{status}</span>
+          <span>{status}</span>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ fontSize: 84, lineHeight: 0.95, letterSpacing: -2 }}>{title}</div>
-          <div style={{ marginTop: 28, fontSize: 30, lineHeight: 1.35, color: "#d9d2c5", maxWidth: 900 }}>
-            {summary}
-          </div>
+          <div style={{ fontSize: 84, lineHeight: 1.05, letterSpacing: -2 }}>{title}</div>
+          <div style={{ marginTop: 28, fontSize: 30, lineHeight: 1.35, maxWidth: 900 }}>{summary}</div>
         </div>
       </div>
     ),

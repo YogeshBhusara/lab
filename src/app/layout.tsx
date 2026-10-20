@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Fraunces, Geist, Geist_Mono } from "next/font/google";
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
+import { Inter, Geist } from "next/font/google";
+import { Providers } from "@/components/providers";
 import { getSiteUrl, site } from "@/lib/site";
+import "@/components/arc/foundation.css";
 import "./globals.css";
 
 const geist = Geist({
@@ -10,14 +10,9 @@ const geist = Geist({
   variable: "--font-geist",
 });
 
-const geistMono = Geist_Mono({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-geist-mono",
-});
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-fraunces",
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -37,11 +32,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${geistMono.variable} ${fraunces.variable}`}>
-      <body className="flex min-h-screen flex-col antialiased">
-        <SiteHeader />
-        <main className="flex-1">{children}</main>
-        <SiteFooter />
+    <html lang="en" data-theme="dark" className={`${geist.variable} ${inter.variable}`}>
+      <body>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
