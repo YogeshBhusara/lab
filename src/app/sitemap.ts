@@ -12,7 +12,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     { url: base, changeFrequency: "weekly", priority: 1 },
-    { url: `${base}/add`, changeFrequency: "yearly", priority: 0.3 },
     ...experiments,
   ];
 }

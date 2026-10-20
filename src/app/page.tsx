@@ -21,9 +21,6 @@ export default function HomePage() {
           <Link className={`${styles.action} ${styles.primary}`} href="#index">
             Browse the index
           </Link>
-          <Link className={`${styles.action} ${styles.secondary}`} href="/add">
-            Add an experiment
-          </Link>
         </div>
       </section>
 

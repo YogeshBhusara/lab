@@ -27,7 +27,7 @@ function Mark() {
 function Chrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { theme, setTheme } = useLabTheme();
-  const current = pathname.startsWith("/add") ? "add" : pathname === "/" ? "index" : undefined;
+  const current = pathname === "/" ? "index" : undefined;
 
   return (
     <>
@@ -35,10 +35,7 @@ function Chrome({ children }: { children: React.ReactNode }) {
         <SiteHeader
           variant="centered"
           brand={{ name: "Lab", href: "/", mark: <Mark /> }}
-          items={[
-            { value: "index", label: "Index", href: "/" },
-            { value: "add", label: "Add an experiment", href: "/add" },
-          ]}
+          items={[{ value: "index", label: "Index", href: "/" }]}
           current={current}
           secondaryAction={null}
           primaryAction={null}
@@ -66,7 +63,6 @@ function Chrome({ children }: { children: React.ReactNode }) {
         tagline="A public index of experiments."
         links={[
           { label: "Index", href: "/" },
-          { label: "Add an experiment", href: "/add" },
           { label: "GitHub", href: "https://github.com/YogeshBhusara/lab", external: true },
         ]}
         columns={[]}
