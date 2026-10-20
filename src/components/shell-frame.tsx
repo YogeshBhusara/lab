@@ -55,7 +55,6 @@ export function ShellFrame({ count, children }: { count: number; children: React
             </span>
             {site.author}
           </p>
-          <p className={styles.headline}>A shelf for experiments you can open and share</p>
           <p className={styles.intro}>
             Prototypes, studies, and native apps. Each page has the note, the stack, and a link you can send.
           </p>

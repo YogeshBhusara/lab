@@ -68,17 +68,8 @@
   line-height: 1;
 }
 
-.headline {
-  margin: 18px 0 0;
-  color: #292929;
-  font-size: 32px;
-  font-weight: 600;
-  letter-spacing: -0.04em;
-  line-height: 1.05;
-}
-
 .intro {
-  margin: 16px 0 0;
+  margin: 28px 0 0;
   color: #4a4a4a;
   font-size: 16px;
   font-weight: 400;
@@ -466,10 +457,6 @@ a.value:hover {
 @media (max-width: 720px) {
   .grid {
     grid-template-columns: 1fr;
-  }
-
-  .headline {
-    font-size: 28px;
   }
 
   .board {
