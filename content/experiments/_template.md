@@ -8,6 +8,7 @@ stack: Next.js, TypeScript
 link: GitHub | https://github.com/YogeshBhusara/your-repo
 featured: false
 visual: true
+image: /experiments/my-thing.jpg
 ---
 
 What you tried, what it does, and what is still unfinished.

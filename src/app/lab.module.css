@@ -182,24 +182,53 @@ a.value:hover {
 }
 
 .tile {
-  display: flex;
-  min-height: 186px;
+  position: relative;
+  display: block;
+  aspect-ratio: 8 / 5;
   overflow: hidden;
   border-radius: 20px;
-  color: #292929;
+  color: #fff;
   text-decoration: none;
+  background: #111;
 }
 
+.photo,
 .swatch {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.photo {
+  object-fit: cover;
+  object-position: center;
+}
+
+.name {
+  position: absolute;
+  inset: 0;
   display: flex;
-  flex: 1;
-  min-height: 186px;
   align-items: flex-end;
   padding: 18px 20px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.62), transparent 58%);
   font-size: 22px;
   font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.1;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.tile:hover .name,
+.tile:focus-visible .name {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .name {
+    opacity: 1;
+  }
 }
 
 .notePage {
@@ -360,7 +389,8 @@ a.value:hover {
 @media (prefers-reduced-motion: reduce) {
   .panel,
   .stage,
-  .stageInner {
+  .stageInner,
+  .name {
     transition: none;
     animation: none;
   }

@@ -72,6 +72,7 @@ function parseExperiment(slug: string, raw: string): Experiment {
     links,
     featured: data.featured === "true",
     visual: data.visual === "true",
+    image: data.image ?? "",
     body: match[2].trim(),
   };
 }

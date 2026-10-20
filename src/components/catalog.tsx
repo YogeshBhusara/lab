@@ -18,9 +18,12 @@ export function Catalog({ experiments }: { experiments: Experiment[] }) {
         {experiments.map((experiment) => (
           <li key={experiment.slug}>
             <Link href={experimentPath(experiment.slug)} className={styles.tile}>
-              <span className={styles.swatch} style={{ background: wash(experiment.slug) }}>
-                {experiment.title}
-              </span>
+              {experiment.image ? (
+                <img src={experiment.image} alt="" className={styles.photo} />
+              ) : (
+                <span className={styles.swatch} style={{ background: wash(experiment.slug) }} />
+              )}
+              <span className={styles.name}>{experiment.title}</span>
             </Link>
           </li>
         ))}

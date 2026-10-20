@@ -18,6 +18,7 @@ export type Experiment = {
   links: ExperimentLink[];
   featured: boolean;
   visual: boolean;
+  image: string;
   body: string;
 };
 
