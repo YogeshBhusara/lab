@@ -39,7 +39,7 @@ export default async function ExperimentPage({ params }: PageProps) {
 
   return (
     <article className={styles.notePage}>
-      <div className={styles.note}>
+      <div className={styles.note} data-note="">
         <Link className={styles.close} href="/">
           Close
         </Link>

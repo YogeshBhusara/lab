@@ -147,74 +147,18 @@ a.value:hover {
   padding: 12px;
 }
 
-.stageLayer {
-  grid-area: 1 / 1;
-  min-width: 0;
-}
-
-.stageLayer[data-leaving] {
+.portal {
+  position: fixed;
   z-index: 1;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #fff center / cover no-repeat;
   pointer-events: none;
 }
 
-.stageLayer[data-motion="open"][data-entering] {
-  animation: from-right 520ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.stageLayer[data-motion="open"][data-leaving] {
-  animation: to-left 520ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-.stageLayer[data-motion="close"][data-entering] {
-  animation: from-left 520ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.stageLayer[data-motion="close"][data-leaving] {
-  animation: to-right 520ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-@keyframes from-right {
-  from {
-    opacity: 0;
-    transform: translateX(28px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes to-left {
-  from {
-    opacity: 1;
-    transform: none;
-  }
-  to {
-    opacity: 0;
-    transform: translateX(-28px);
-  }
-}
-
-@keyframes from-left {
-  from {
-    opacity: 0;
-    transform: translateX(-28px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes to-right {
-  from {
-    opacity: 1;
-    transform: none;
-  }
-  to {
-    opacity: 0;
-    transform: translateX(28px);
-  }
+.portal > * {
+  margin: 0;
+  transform-origin: top left;
 }
 
 .gallery {
@@ -443,14 +387,9 @@ a.value:hover {
 @media (prefers-reduced-motion: reduce) {
   .panel,
   .stage,
-  .stageLayer,
   .name {
     transition: none;
     animation: none;
-  }
-
-  .stageLayer[data-leaving] {
-    display: none;
   }
 }
 
