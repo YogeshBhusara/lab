@@ -2,16 +2,28 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { site } from "@/lib/site";
 import styles from "@/app/lab.module.css";
 
 const github = "https://github.com/YogeshBhusara/lab";
+const motionMs = 520;
 
-export function ShellFrame({ count, children }: { count: number; children: React.ReactNode }) {
+export function ShellFrame({ count, children }: { count: number; children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const open = pathname.startsWith("/experiments/");
+  const [shown, setShown] = useState(children);
+  const [shownOpen, setShownOpen] = useState(open);
+  const [outgoing, setOutgoing] = useState<ReactNode>(null);
+
+  if (open !== shownOpen) {
+    setShownOpen(open);
+    setOutgoing(shown);
+    setShown(children);
+  } else if (shown !== children) {
+    setShown(children);
+  }
 
   useEffect(() => {
     if (!open) return;
@@ -21,6 +33,14 @@ export function ShellFrame({ count, children }: { count: number; children: React
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open, router]);
+
+  useEffect(() => {
+    if (outgoing == null) return;
+    const id = window.setTimeout(() => setOutgoing(null), motionMs);
+    return () => window.clearTimeout(id);
+  }, [outgoing]);
+
+  const motion = open ? "open" : "close";
 
   return (
     <div className={styles.shell} data-open={open ? "" : undefined}>
@@ -54,8 +74,17 @@ export function ShellFrame({ count, children }: { count: number; children: React
         </div>
       </aside>
       <div className={styles.stage}>
-        <div className={styles.stageInner} key={open ? "note" : "grid"}>
-          {children}
+        {outgoing != null ? (
+          <div className={styles.stageLayer} data-leaving="" data-motion={motion} inert>
+            {outgoing}
+          </div>
+        ) : null}
+        <div
+          className={styles.stageLayer}
+          data-entering={outgoing != null ? "" : undefined}
+          data-motion={motion}
+        >
+          {shown}
         </div>
       </div>
     </div>
