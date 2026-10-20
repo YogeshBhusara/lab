@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/arc/badge/badge";
-import { Breadcrumb } from "@/components/arc/breadcrumb/breadcrumb";
 import { Prose } from "@/components/prose";
 import { ShareLink } from "@/components/share-link";
 import { getExperiment, getExperiments } from "@/lib/experiments";
@@ -39,13 +39,10 @@ export default async function ExperimentPage({ params }: PageProps) {
 
   return (
     <article className={styles.notePage}>
-      <Breadcrumb
-        items={[
-          { label: "Lab", href: "/" },
-          { label: experiment.title },
-        ]}
-      />
       <div className={styles.note}>
+        <Link className={styles.close} href="/">
+          Close
+        </Link>
         <div className={styles.kicker}>
           <Badge size="sm">{STATUS_LABEL[experiment.status]}</Badge>
           {experiment.year ? <span>{experiment.year}</span> : null}

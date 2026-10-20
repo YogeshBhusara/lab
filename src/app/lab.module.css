@@ -8,19 +8,26 @@
 }
 
 .shell {
-  display: grid;
-  grid-template-columns: 350px minmax(0, 1fr);
   min-height: 100vh;
   background: #ebebeb;
   color: #292929;
 }
 
 .panel {
-  position: sticky;
+  position: fixed;
+  z-index: 2;
   top: 0;
+  left: 0;
+  width: 350px;
   height: 100dvh;
   box-sizing: border-box;
   padding: 12px;
+  transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.shell[data-open] .panel {
+  transform: translateX(calc(-100% - 16px));
+  pointer-events: none;
 }
 
 .board {
@@ -135,7 +142,30 @@ a.value:hover {
 
 .stage {
   min-width: 0;
-  padding: 20px 20px 48px 0;
+  min-height: 100dvh;
+  margin-left: 350px;
+  padding: 20px 20px 48px 8px;
+  transition: margin-left 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.shell[data-open] .stage {
+  margin-left: 0;
+  padding: 12px;
+}
+
+.stageInner {
+  animation: settle 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .gallery {
@@ -265,6 +295,25 @@ a.value:hover {
   padding: 32px;
 }
 
+.shell[data-open] .note {
+  min-height: calc(100dvh - 24px);
+  box-sizing: border-box;
+}
+
+.close {
+  justify-self: start;
+  color: #292929;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  text-underline-offset: 5px;
+}
+
+.close:hover {
+  text-decoration: underline;
+  text-decoration-color: #9a4a32;
+}
+
 .heading {
   margin: 0;
   color: #292929;
@@ -352,13 +401,20 @@ a.value:hover {
 }
 
 @media (max-width: 980px) {
-  .shell {
-    grid-template-columns: 1fr;
-  }
-
   .panel {
     position: relative;
+    width: auto;
     height: auto;
+    transform: none;
+    transition:
+      opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .shell[data-open] .panel {
+    position: absolute;
+    transform: translateY(-24px);
+    opacity: 0;
   }
 
   .board {
@@ -370,8 +426,23 @@ a.value:hover {
     padding-top: 36px;
   }
 
-  .stage {
+  .stage,
+  .shell[data-open] .stage {
+    margin-left: 0;
     padding: 0 12px 40px;
+  }
+
+  .shell[data-open] .note {
+    min-height: calc(100dvh - 24px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .stage,
+  .stageInner {
+    transition: none;
+    animation: none;
   }
 }
 
