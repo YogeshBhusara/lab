@@ -7,6 +7,7 @@ tags: reading, 3d, web
 stack: Next.js, React, PDF.js
 link: GitHub | https://github.com/YogeshBhusara/bookshelf
 featured: true
+visual: true
 ---
 
 Inspired by the shelf on grizz.fyi. Every PDF becomes a spine. Click once to pull the book forward, click again to open it.

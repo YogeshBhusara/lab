@@ -17,6 +17,7 @@ export type Experiment = {
   stack: string[];
   links: ExperimentLink[];
   featured: boolean;
+  visual: boolean;
   body: string;
 };
 

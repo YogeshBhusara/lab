@@ -9,8 +9,9 @@ The apps themselves stay in their own folders and repositories. This site is the
 1. Copy `content/experiments/_template.md` to a new file, for example `content/experiments/my-thing.md`.
 2. The file name is the URL. `my-thing.md` is published at `/experiments/my-thing`.
 3. Fill in the title, a one-sentence summary, and a status: `prototype`, `study`, `native`, or `sketch`.
-4. Add a `link:` line only when a GitHub or live URL exists.
-5. Commit and push. Vercel publishes the page.
+4. Set `visual: true` when the experiment should appear on the shelf. Anything else stays in the folder and is not published.
+5. Add a `link:` line only when a GitHub or live URL exists.
+6. Commit and push. Vercel publishes the page.
 
 Files whose names start with `_` are templates and are not published.
 

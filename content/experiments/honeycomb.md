@@ -7,6 +7,7 @@ tags: interface, portfolio, web
 stack: HTML, CSS, JavaScript
 link: GitHub | https://github.com/YogeshBhusara/honeycomb-grid
 featured: false
+visual: true
 ---
 
 Hex cells scale around the pointer, the canvas pans inside a square, and a selected image opens edge to edge.

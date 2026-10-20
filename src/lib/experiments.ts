@@ -71,6 +71,7 @@ function parseExperiment(slug: string, raw: string): Experiment {
     stack: splitList(data.stack ?? ""),
     links,
     featured: data.featured === "true",
+    visual: data.visual === "true",
     body: match[2].trim(),
   };
 }
@@ -86,6 +87,7 @@ export function getExperiments(): Experiment[] {
       const raw = fs.readFileSync(path.join(CONTENT_DIR, file), "utf8");
       return parseExperiment(slug, raw);
     })
+    .filter((experiment) => experiment.visual)
     .sort((a, b) => {
       if (a.featured !== b.featured) return a.featured ? -1 : 1;
       return a.title.localeCompare(b.title);
